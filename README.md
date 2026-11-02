@@ -16,6 +16,8 @@
 
 ## 📖 Table of Contents
 
+## 📖 Table of Contents
+
 - [About the Project](#-about-the-project)
 - [Objectives](#-objectives)
 - [Project Structure](#-project-structure)
@@ -34,6 +36,7 @@
 - [Best Practices](#-best-practices)
 - [Testing](#-testing)
 - [What I Learned](#-what-i-learned)
+- [AI Usage Disclosure](#-ai-usage-disclosure)
 - [References](#-references)
 
 ---
@@ -917,6 +920,16 @@ This project helps consolidate fundamental C programming concepts:
 - Build automation with Makefiles.
 
 Libft provides a reusable foundation for other Common Core projects, provided the required functions are implemented and used according to their contracts.
+
+## 🤖 AI Usage Disclosure
+
+AI tools were used as a learning aid during the development of this project.
+
+I used ChatGPT to clarify C programming concepts, understand function behavior, discuss pointers and memory management, review code, troubleshoot issues, and learn how to structure and improve my Makefile and documentation.
+
+The purpose of using AI was to support my learning and problem-solving process, not to replace my understanding of the code. I remain responsible for reviewing, understanding, testing, and validating the final implementation against the official project requirements.
+
+AI assistance was used as a supplementary educational resource throughout the development process.
 
 ## 🔗 References
 
