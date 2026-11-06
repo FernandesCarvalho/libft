@@ -714,22 +714,6 @@ ft_putnbr_fd(-2147483648, 1);  // -2147483648
 
 </details>
 
-<details>
-<summary><b>ft_putchar</b> · 🟢 · <code>void ft_putchar(char c)</code> · ➕ extra</summary>
-
-Writes one character to `stdout`. Not part of the subject.
-
-</details>
-
-<details>
-<summary><b>ft_putstr</b> · 🟢 · <code>void ft_putstr(char *str)</code> · ➕ extra</summary>
-
-Writes a string to `stdout`. Not part of the subject.
-
-- **Depends on:** `ft_putchar`.
-
-</details>
-
 <a id="lists"></a>
 ### 🔗 Linked lists (Part 3)
 
