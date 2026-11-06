@@ -1,943 +1,899 @@
-# 📚 Libft — 42 School
+<h1 align="center">📚 libft</h1>
 
-> My own C library, built from scratch as part of the 42 School Common Core.
+<p align="center">
+  My first C library: <code>libc</code> functions rebuilt from scratch,
+  extra utilities and linked lists.<br>
+  A <b>42 Porto</b> project.
+</p>
 
-
-\
-
-
-## 📖 Table of Contents# 📚 Libft — 42 School
-
-> My own C library, built from scratch as part of the 42 School Common Core.
-
-
-\
-
-
-## 📖 Table of Contents
-
-## 📖 Table of Contents
-
-- [About the Project](#-about-the-project)
-- [Objectives](#-objectives)
-- [Project Structure](#-project-structure)
-- [Requirements](#-requirements)
-- [Compilation](#-compilation)
-- [How to Use the Library](#-how-to-use-the-library)
-- [Library Functions](#-library-functions)
-  - [Character Checks](#1-character-checks)
-  - [Character Conversion](#2-character-conversion)
-  - [String Manipulation](#3-string-manipulation)
-  - [Memory Manipulation](#4-memory-manipulation)
-  - [Number Conversion](#5-number-conversion)
-  - [Memory Allocation](#6-memory-allocation)
-  - [Additional Functions](#7-additional-functions)
-  - [Linked Lists — Bonus](#8-linked-lists--bonus)
-- [Best Practices](#-best-practices)
-- [Testing](#-testing)
-- [What I Learned](#-what-i-learned)
-- [AI Usage Disclosure](#-ai-usage-disclosure)
-- [References](#-references)
+<p align="center">
+  <img alt="42 Porto" src="https://img.shields.io/badge/42-Porto-000000?style=flat">
+  <img alt="Language C" src="https://img.shields.io/badge/language-C-00599C?style=flat">
+  <img alt="45 functions" src="https://img.shields.io/badge/functions-45-success?style=flat">
+</p>
 
 ---
 
-## 🧠 About the Project
+## 🧭 Quick navigation
 
-**Libft** is a foundational project in the 42 School Common Core. Its goal is to build a personal C library by reimplementing several standard library functions and developing additional utility functions.
+| I want to see... | Go to |
+| --- | --- |
+| How to build and use it | [⚙️ Build and use](#build) |
+| Everything sorted by difficulty | [🎯 By difficulty](#difficulty) |
+| Which function depends on which | [🧩 Dependency map](#dependencies) |
+| Which functions use `malloc` | [💾 Memory allocation](#memory) |
+| Full reference for every function | [📖 Reference by category](#reference) |
+| How to test | [🧪 Testing](#testing) |
+| How AI was used in this project | [🤖 AI usage](#ai-usage) |
 
-Instead of relying directly on certain standard library functions, this project encourages understanding their behavior and implementing custom versions.
+> 💡 **Tip:** in the reference, every function is a collapsible section. Click the function's line to expand or collapse its details.
 
-The resulting library can be reused in future C projects.
+---
 
-## 🎯 Objectives
+## 🚦 Difficulty legend
 
-- Understand strings, arrays, and pointers.
-- Work with memory addresses and dynamic memory allocation.
-- Learn how to use `malloc` and `free`.
-- Implement memory and string manipulation functions.
-- Understand functions that receive other functions as arguments.
-- Work with structures and linked lists.
-- Create a static library using `ar`.
-- Automate compilation with a `Makefile`.
-- Write organized, reusable, and robust C code.
+| Icon | Level | Meaning |
+| :---: | --- | --- |
+| 🟢 | Easy | Straightforward logic, few edge cases, no allocation |
+| 🟡 | Medium | Pointers, casts or `malloc`, plus a few edge cases to handle |
+| 🔴 | Hard | Several edge cases, memory handling or logic that needs care |
 
-## 📁 Project Structure
+> The rating is an estimate based on each function's logic and edge cases, so it is subjective.
 
-The exact structure may vary depending on the version of the assignment. One possible layout is:
+---
 
-```text
-libft/
-├── Makefile
-├── libft.a
-├── includes/
-│   └── libft.h
-└── srcs/
-    ├── ft_isalpha.c
-    ├── ft_isdigit.c
-    ├── ft_strlen.c
-    ├── ft_memset.c
-    ├── ft_strdup.c
-    └── ...
-```
+## 🗺️ Overview
 
-| File or directory  | Purpose                                      |
-| ------------------ | -------------------------------------------- |
-| `Makefile`         | Automates compilation.                       |
-| `includes/libft.h` | Declares public functions and structures.    |
-| `srcs/`            | Contains function implementations.           |
-| `libft.a`          | Static library generated during compilation. |
-| `*.o`              | Object files produced by the compiler.       |
+| # | Category | Functions | Part |
+| :---: | --- | :---: | --- |
+| 1 | [🔤 Character checks](#ctype) | 5 | Part 1 |
+| 2 | [🔡 Character conversion](#case) | 2 | Part 1 |
+| 3 | [🔍 Strings: measure, compare and search](#str-query) | 5 | Part 1 |
+| 4 | [📋 Strings: copy and concatenate](#str-copy) | 3 | Part 1 |
+| 5 | [🧠 Memory](#mem) | 7 | Part 1 |
+| 6 | [🔢 Numbers and text](#numbers) | 2 | Part 1 and 2 |
+| 7 | [✂️ Creating and transforming strings](#str-new) | 6 | Part 2 |
+| 8 | [🖨️ Writing to a file descriptor](#output) | 6 | Part 2 and extras |
+| 9 | [🔗 Linked lists](#lists) | 9 | Bonus |
 
-## ⚙️ Requirements
+**Total: 45 functions** (23 from `libc`, 11 additional, 9 for lists and 2 extras outside the subject: `ft_putchar` and `ft_putstr`).
 
-Before compiling, make sure you have:
+---
 
-- A C compiler, such as `cc` or `gcc`.
-- `make`.
-- `ar`, which creates static libraries.
-- An environment compatible with the commands used in the Makefile.
+<a id="build"></a>
+## ⚙️ Build and use
 
-## 🔨 Compilation
+### Makefile rules
 
-From the project root directory, run:
+| Command | What it does |
+| --- | --- |
+| `make` | Builds everything and creates `libft.a` |
+| `make clean` | Removes the object files (`.o`) |
+| `make fclean` | Removes the `.o` files and `libft.a` |
+| `make re` | `fclean` followed by `make` |
+| `make norm` | Runs `norminette` on the `.c` and `.h` files |
 
-```bash
-make
-```
+Compilation flags: `-Wall -Wextra -Werror`.
 
-This executes the default Makefile target and creates `libft.a`.
-
-### Available Commands
-
-| Command       | Description                                   |
-| ------------- | --------------------------------------------- |
-| `make`        | Compiles the library.                         |
-| `make all`    | Executes the main target.                     |
-| `make clean`  | Removes object files (`.o`).                  |
-| `make fclean` | Removes object files and `libft.a`.           |
-| `make re`     | Cleans previous build outputs and recompiles. |
-
-To perform a clean rebuild:
-
-```bash
-make fclean
-make
-```
-
-## 🔌 How to Use the Library
-
-After compiling the library, you can link it to a C program.
-
-### 1. Include the Header
-
-In your C source file:
-
-```c
-#include "libft.h"
-```
-
-The header contains declarations for the functions available in your library.
-
-### 2. Compile Your Program
-
-For example, if your program is called `main.c`:
-
-```bash
-cc -Wall -Wextra -Werror \
-   -I includes \
-   main.c libft.a \
-   -o program
-```
-
-Then run it:
-
-```bash
-./program
-```
-
-**What do the options mean?**
-
-- `-Wall -Wextra -Werror`: enables warnings and treats them as errors.
-- `-I includes`: tells the compiler where to find header files.
-- `main.c`: your program's source file.
-- `libft.a`: the static library containing your implementations.
-- `-o program`: sets the output executable's name.
-
-### 3. Usage Example
+### Using it in another project
 
 ```c
 #include "libft.h"
 
 int main(void)
 {
-    char message[] = "My Libft is working!\n";
-
-    ft_putstr_fd(message, 1);
-    return (0);
+	ft_putendl_fd("Hello, 42 Porto!", 1);
+	return (0);
 }
 ```
 
-This example assumes that `ft_putstr_fd` is implemented in your library. File descriptor `1` represents standard output, usually the terminal.
+```bash
+make
+cc -Wall -Wextra -Werror main.c -L. -lft -o test
+./test
+```
 
 ---
 
-## 🧩 Library Functions
+<a id="difficulty"></a>
+## 🎯 By difficulty
 
-The following sections describe functions found in the classic Libft project. Include only the functions actually implemented in your version.
+<details>
+<summary><b>🟢 Easy</b> · 20 functions</summary>
 
-### 1. Character Checks
+| Category | Functions |
+| --- | --- |
+| Character checks | `ft_isalpha` `ft_isdigit` `ft_isalnum` `ft_isascii` `ft_isprint` |
+| Character conversion | `ft_toupper` `ft_tolower` |
+| Strings | `ft_strlen` `ft_strchr` |
+| Memory | `ft_memset` `ft_bzero` |
+| Output | `ft_putchar_fd` `ft_putstr_fd` `ft_putendl_fd` `ft_putchar` `ft_putstr` |
+| Lists | `ft_lstnew` `ft_lstadd_front` `ft_lstsize` `ft_lstlast` |
 
-These functions check character properties. They return a non-zero value when the condition is true and zero when it is false.
+</details>
 
-| Function     | Description                                                 |
-| ------------ | ----------------------------------------------------------- |
-| `ft_isalpha` | Checks whether a character is a letter.                     |
-| `ft_isdigit` | Checks whether a character is a digit from `0` to `9`.      |
-| `ft_isalnum` | Checks whether a character is a letter or digit.            |
-| `ft_isascii` | Checks whether a value belongs to the ASCII range `0–127`.  |
-| `ft_isprint` | Checks whether a character is printable in the ASCII range. |
+<details>
+<summary><b>🟡 Medium</b> · 17 functions</summary>
 
-Example:
+| Category | Functions |
+| --- | --- |
+| Strings | `ft_strrchr` `ft_strncmp` `ft_strlcpy` `ft_strdup` `ft_substr` `ft_strjoin` `ft_strmapi` `ft_striteri` |
+| Memory | `ft_memchr` `ft_memcmp` `ft_memcpy` `ft_calloc` |
+| Numbers | `ft_atoi` |
+| Output | `ft_putnbr_fd` |
+| Lists | `ft_lstadd_back` `ft_lstdelone` `ft_lstiter` |
+
+</details>
+
+<details>
+<summary><b>🔴 Hard</b> · 8 functions</summary>
+
+| Category | Functions | Why |
+| --- | --- | --- |
+| Memory | `ft_memmove` | Overlapping regions: it has to copy in different directions |
+| Strings | `ft_strlcat` | Return value and truncation follow their own rules |
+| Strings | `ft_strnstr` | Search limited by `len`, plus the empty substring case |
+| Strings | `ft_strtrim` | Trimming both ends without going out of bounds |
+| Strings | `ft_split` | Counting words, allocating a matrix and freeing everything on failure |
+| Numbers | `ft_itoa` | `INT_MIN`, zero and negative numbers |
+| Lists | `ft_lstclear` | Freeing nodes without losing the pointer to the next one |
+| Lists | `ft_lstmap` | Building a new list and cleaning it all up if one node fails |
+
+</details>
+
+---
+
+<a id="dependencies"></a>
+## 🧩 Dependency map
+
+An arrow `A --> B` means that `A` calls `B`. Useful for deciding in which order to implement and test.
+
+```mermaid
+flowchart LR
+    ft_calloc --> ft_bzero
+    ft_memmove --> ft_memcpy
+    ft_strlcat --> ft_strlen
+    ft_strnstr --> ft_strlen
+    ft_strnstr --> ft_strncmp
+    ft_strdup --> ft_strlen
+    ft_strdup --> ft_strlcpy
+    ft_strjoin --> ft_strlen
+    ft_strjoin --> ft_strlcpy
+    ft_strjoin --> ft_strlcat
+    ft_substr --> ft_strlen
+    ft_substr --> ft_strdup
+    ft_substr --> ft_strlcpy
+    ft_strtrim --> ft_strdup
+    ft_strtrim --> ft_strlen
+    ft_strtrim --> ft_strchr
+    ft_strtrim --> ft_substr
+    ft_split --> ft_calloc
+    ft_split --> ft_substr
+    ft_strmapi --> ft_strlen
+    ft_putstr --> ft_putchar
+    ft_putstr_fd --> ft_putchar_fd
+    ft_putendl_fd --> ft_putstr_fd
+    ft_putendl_fd --> ft_putchar_fd
+    ft_putnbr_fd --> ft_putchar_fd
+    ft_lstadd_back --> ft_lstlast
+    ft_lstclear --> ft_lstdelone
+    ft_lstmap --> ft_lstnew
+    ft_lstmap --> ft_lstadd_back
+    ft_lstmap --> ft_lstclear
+```
+
+Functions that **do not appear** in the map do not depend on any other function of the library.
+
+---
+
+<a id="memory"></a>
+## 💾 Memory allocation
+
+| Function | Allocates with `malloc`? | What you have to free |
+| --- | :---: | --- |
+| `ft_calloc` | ✅ | The returned block |
+| `ft_strdup` | ✅ | The returned string |
+| `ft_substr` | ✅ | The returned string |
+| `ft_strjoin` | ✅ | The returned string |
+| `ft_strtrim` | ✅ | The returned string |
+| `ft_split` | ✅ | Each string, then the array |
+| `ft_itoa` | ✅ | The returned string |
+| `ft_strmapi` | ✅ | The returned string |
+| `ft_lstnew` | ✅ | The node (via `ft_lstdelone` or `ft_lstclear`) |
+| `ft_lstmap` | ✅ | The new list (via `ft_lstclear`) |
+
+All the other functions allocate nothing.
+
+---
+
+<a id="reference"></a>
+## 📖 Reference by category
+
+<a id="ctype"></a>
+### 🔤 Character checks
+
+All of them take an `int` and return `1` (true) or `0` (false).
+
+<details>
+<summary><b>ft_isalpha</b> · 🟢 · <code>int ft_isalpha(int n)</code></summary>
+
+Checks whether the character is a letter (`a-z` or `A-Z`).
 
 ```c
-if (ft_isdigit('7'))
+ft_isalpha('a');   // 1
+ft_isalpha('7');   // 0
+```
+
+</details>
+
+<details>
+<summary><b>ft_isdigit</b> · 🟢 · <code>int ft_isdigit(int n)</code></summary>
+
+Checks whether the character is a digit (`0-9`).
+
+```c
+ft_isdigit('7');   // 1
+ft_isdigit('a');   // 0
+```
+
+</details>
+
+<details>
+<summary><b>ft_isalnum</b> · 🟢 · <code>int ft_isalnum(int n)</code></summary>
+
+Checks whether the character is a letter or a digit.
+
+```c
+ft_isalnum('K');   // 1
+ft_isalnum('_');   // 0
+```
+
+</details>
+
+<details>
+<summary><b>ft_isascii</b> · 🟢 · <code>int ft_isascii(int n)</code></summary>
+
+Checks whether the value is in the ASCII table (`0` to `127`).
+
+```c
+ft_isascii(65);    // 1
+ft_isascii(128);   // 0
+ft_isascii(-1);    // 0
+```
+
+</details>
+
+<details>
+<summary><b>ft_isprint</b> · 🟢 · <code>int ft_isprint(int n)</code></summary>
+
+Checks whether the character is printable (`32` to `126`, space included).
+
+```c
+ft_isprint(' ');    // 1
+ft_isprint('\n');   // 0
+```
+
+</details>
+
+<a id="case"></a>
+### 🔡 Character conversion
+
+<details>
+<summary><b>ft_toupper</b> · 🟢 · <code>int ft_toupper(int c)</code></summary>
+
+Converts a lowercase letter to uppercase. Any other value is returned unchanged.
+
+```c
+ft_toupper('a');   // 'A'
+ft_toupper('7');   // '7'
+```
+
+</details>
+
+<details>
+<summary><b>ft_tolower</b> · 🟢 · <code>int ft_tolower(int c)</code></summary>
+
+Converts an uppercase letter to lowercase. Any other value is returned unchanged.
+
+```c
+ft_tolower('Z');   // 'z'
+ft_tolower('!');   // '!'
+```
+
+</details>
+
+<a id="str-query"></a>
+### 🔍 Strings: measure, compare and search
+
+<details>
+<summary><b>ft_strlen</b> · 🟢 · <code>size_t ft_strlen(const char *str)</code></summary>
+
+Returns the number of characters in the string, not counting the `'\0'`.
+
+```c
+ft_strlen("42 Porto");   // 8
+ft_strlen("");           // 0
+```
+
+</details>
+
+<details>
+<summary><b>ft_strchr</b> · 🟢 · <code>char *ft_strchr(const char *str, int c)</code></summary>
+
+Returns a pointer to the **first** occurrence of `c`, or `NULL` if there is none. Searching for `'\0'` returns a pointer to the terminator.
+
+```c
+ft_strchr("42 Porto", 'o');    // "orto"
+ft_strchr("42 Porto", 'z');    // NULL
+```
+
+</details>
+
+<details>
+<summary><b>ft_strrchr</b> · 🟡 · <code>char *ft_strrchr(const char *str, int c)</code></summary>
+
+Same as `ft_strchr`, but returns the **last** occurrence. It compares `c` as an `unsigned char` and also finds the `'\0'`.
+
+```c
+ft_strrchr("42 Porto", 'o');   // "o"
+ft_strrchr("42 Porto", 'z');   // NULL
+```
+
+</details>
+
+<details>
+<summary><b>ft_strncmp</b> · 🟡 · <code>int ft_strncmp(const char *s1, const char *s2, size_t n)</code></summary>
+
+Compares up to `n` characters, stopping at the first different character or at the `'\0'`. The difference is computed as `unsigned char`.
+
+- Returns `0` if they are equal in the first `n` characters.
+- Returns a negative value if `s1 < s2` and a positive one if `s1 > s2`.
+
+```c
+ft_strncmp("abc", "abd", 2);   // 0
+ft_strncmp("abc", "abd", 3);   // < 0
+```
+
+</details>
+
+<details>
+<summary><b>ft_strnstr</b> · 🔴 · <code>char *ft_strnstr(const char *big, const char *little, size_t len)</code></summary>
+
+Looks for `little` inside `big`, checking at most the first `len` characters.
+
+- If `little` is empty, returns `big`.
+- If it is not found, returns `NULL`.
+- **Depends on:** `ft_strlen`, `ft_strncmp`.
+
+```c
+ft_strnstr("Hello World", "World", 11);   // "World"
+ft_strnstr("Hello World", "World", 8);    // NULL
+ft_strnstr("Hello World", "", 3);         // "Hello World"
+```
+
+</details>
+
+<a id="str-copy"></a>
+### 📋 Strings: copy and concatenate
+
+<details>
+<summary><b>ft_strlcpy</b> · 🟡 · <code>size_t ft_strlcpy(char *dst, const char *src, size_t dstsize)</code></summary>
+
+Copies `src` into `dst` without ever writing more than `dstsize` bytes, and always ends with `'\0'` (if `dstsize > 0`).
+
+- Returns the **length of `src`**, which makes it possible to detect truncation (`return value >= dstsize`).
+- With `dstsize == 0` it copies nothing.
+
+```c
+char dst[5];
+ft_strlcpy(dst, "Hello World", 5);   // returns 11, dst = "Hell"
+```
+
+</details>
+
+<details>
+<summary><b>ft_strlcat</b> · 🔴 · <code>size_t ft_strlcat(char *dst, const char *src, size_t dstsize)</code></summary>
+
+Appends `src` to the end of `dst`, without exceeding `dstsize` bytes in total, and ends with `'\0'`.
+
+- Returns the length the string would have without truncation: `len(dst) + len(src)`.
+- If `dstsize` is less than or equal to `len(dst)`, it writes nothing and returns `dstsize + len(src)`.
+- **Depends on:** `ft_strlen`.
+
+```c
+char buf[10] = "42";
+ft_strlcat(buf, " Porto", 10);   // returns 8, buf = "42 Porto"
+```
+
+</details>
+
+<details>
+<summary><b>ft_strdup</b> · 🟡 · <code>char *ft_strdup(const char *s1)</code> · 💾</summary>
+
+Creates a **new copy** of the string in allocated memory. Returns `NULL` if `malloc` fails.
+
+- **Depends on:** `ft_strlen`, `ft_strlcpy`.
+
+```c
+char *copy = ft_strdup("42 Porto");
+// ...
+free(copy);
+```
+
+</details>
+
+<a id="mem"></a>
+### 🧠 Memory
+
+<details>
+<summary><b>ft_memset</b> · 🟢 · <code>void *ft_memset(void *s, int c, size_t n)</code></summary>
+
+Fills the first `n` bytes of `s` with the byte `c`. Returns `s`.
+
+```c
+char s[] = "Hello";
+ft_memset(s, '.', 3);   // s = "...lo"
+```
+
+</details>
+
+<details>
+<summary><b>ft_bzero</b> · 🟢 · <code>void ft_bzero(void *s, size_t n)</code></summary>
+
+Sets the first `n` bytes of `s` to zero. Returns nothing.
+
+```c
+char s[] = "Hello";
+ft_bzero(s, 6);   // all bytes set to 0, including the final '\0'
+```
+
+</details>
+
+<details>
+<summary><b>ft_memcpy</b> · 🟡 · <code>void *ft_memcpy(void *dst, const void *src, size_t n)</code></summary>
+
+Copies `n` bytes from `src` to `dst`. Returns `dst`.
+
+- If `dst` and `src` are both `NULL`, it returns `dst` without doing anything.
+- ⚠️ It does not handle **overlapping** regions: that is what `ft_memmove` is for.
+
+```c
+char dst[8];
+ft_memcpy(dst, "42Porto", 8);   // dst = "42Porto"
+```
+
+</details>
+
+<details>
+<summary><b>ft_memmove</b> · 🔴 · <code>void *ft_memmove(void *dst, const void *src, size_t len)</code></summary>
+
+Copies `len` bytes from `src` to `dst`, even if the regions overlap. Returns `dst`.
+
+- If `dst > src`, it copies **from back to front** so data that has not been copied yet is not overwritten.
+- Otherwise it copies normally with `ft_memcpy`.
+- If `dst` and `src` are both `NULL`, or equal, or if `len == 0`, it returns `dst`.
+- **Depends on:** `ft_memcpy`.
+
+```c
+char s[] = "abcdefghij";
+ft_memmove(s + 3, s, 4);   // s = "abcabcdhij"
+```
+
+</details>
+
+<details>
+<summary><b>ft_memchr</b> · 🟡 · <code>void *ft_memchr(const void *s, int c, size_t n)</code></summary>
+
+Looks for the byte `c` in the first `n` bytes of `s`. Returns a pointer to the first occurrence, or `NULL`. Unlike `ft_strchr`, it **does not stop at `'\0'`**.
+
+```c
+ft_memchr("Hello", 'l', 5);   // points to "llo"
+ft_memchr("Hello", 'l', 2);   // NULL
+```
+
+</details>
+
+<details>
+<summary><b>ft_memcmp</b> · 🟡 · <code>int ft_memcmp(const void *s1, const void *s2, size_t n)</code></summary>
+
+Compares `n` bytes (as `unsigned char`). Returns `0` if they are equal, or the difference of the first byte that differs. Unlike `ft_strncmp`, it **does not stop at `'\0'`**.
+
+```c
+ft_memcmp("Casa", "Casa", 4);   // 0
+ft_memcmp("Casa", "Cama", 4);   // > 0
+ft_memcmp("Casa", "Cama", 2);   // 0
+```
+
+</details>
+
+<details>
+<summary><b>ft_calloc</b> · 🟡 · <code>void *ft_calloc(size_t nmemb, size_t size)</code> · 💾</summary>
+
+Allocates `nmemb * size` bytes **already set to zero**.
+
+- If `nmemb` or `size` is `0`, it returns a minimal block (`malloc(1)`), which must also be freed.
+- If `nmemb * size` overflows, it returns `NULL`.
+- **Depends on:** `ft_bzero`.
+
+```c
+int *v = ft_calloc(4, sizeof(int));   // v[0..3] == 0
+free(v);
+```
+
+</details>
+
+<a id="numbers"></a>
+### 🔢 Numbers and text
+
+<details>
+<summary><b>ft_atoi</b> · 🟡 · <code>int ft_atoi(const char *nptr)</code></summary>
+
+Converts the beginning of a string into an `int`.
+
+1. Skips leading whitespace (space, `\t`, `\n`, `\v`, `\f`, `\r`).
+2. Accepts **one** sign (`+` or `-`).
+3. Reads digits until the first character that is not one.
+
+It does not handle overflow.
+
+```c
+ft_atoi("  -42abc");   // -42
+ft_atoi("+7");         // 7
+ft_atoi("--5");        // 0
+```
+
+</details>
+
+<details>
+<summary><b>ft_itoa</b> · 🔴 · <code>char *ft_itoa(int n)</code> · 💾</summary>
+
+Converts an `int` into an allocated string. It uses a `long` internally, so `INT_MIN` works. It handles `0` and negative numbers.
+
+```c
+char *s = ft_itoa(-2147483648);   // "-2147483648"
+free(s);
+```
+
+</details>
+
+<a id="str-new"></a>
+### ✂️ Creating and transforming strings
+
+<details>
+<summary><b>ft_substr</b> · 🟡 · <code>char *ft_substr(char const *s, unsigned int start, size_t len)</code> · 💾</summary>
+
+Returns a new string with at most `len` characters, starting at index `start`.
+
+- If `start` is greater than or equal to the length of `s`, it returns an empty (allocated) string.
+- If `len` goes past the end, it cuts at the end of the string.
+- **Depends on:** `ft_strlen`, `ft_strdup`, `ft_strlcpy`.
+
+```c
+ft_substr("Hello 42Porto", 6, 7);    // "42Porto"
+ft_substr("Hello", 10, 3);           // ""
+```
+
+</details>
+
+<details>
+<summary><b>ft_strjoin</b> · 🟡 · <code>char *ft_strjoin(char const *s1, char const *s2)</code> · 💾</summary>
+
+Joins `s1` and `s2` into a new string.
+
+- **Depends on:** `ft_strlen`, `ft_strlcpy`, `ft_strlcat`.
+
+```c
+ft_strjoin("Hello ", "World");   // "Hello World"
+```
+
+</details>
+
+<details>
+<summary><b>ft_strtrim</b> · 🔴 · <code>char *ft_strtrim(char const *s1, char const *set)</code> · 💾</summary>
+
+Removes from the start and the end of `s1` every character that belongs to `set`.
+
+- If `s1` is `NULL`, it returns an empty string.
+- If `set` is `NULL`, it returns a copy of `s1`.
+- **Depends on:** `ft_strdup`, `ft_strlen`, `ft_strchr`, `ft_substr`.
+
+```c
+ft_strtrim("--..42Porto..-", "-.");   // "42Porto"
+```
+
+</details>
+
+<details>
+<summary><b>ft_split</b> · 🔴 · <code>char **ft_split(char const *s, char c)</code> · 💾</summary>
+
+Splits `s` into words using `c` as the separator and returns a `NULL`-terminated array of strings.
+
+- Consecutive separators are ignored (they do not produce empty strings).
+- If `s` is `NULL`, it returns `NULL`.
+- If an allocation fails, it frees everything it had already allocated and returns `NULL`.
+- **Depends on:** `ft_calloc`, `ft_substr` (and three `static` helper functions).
+
+```c
+char **p = ft_split("a b  c", ' ');   // {"a", "b", "c", NULL}
+// free each p[i], then p
+```
+
+</details>
+
+<details>
+<summary><b>ft_strmapi</b> · 🟡 · <code>char *ft_strmapi(char const *s, char (*f)(unsigned int, char))</code> · 💾</summary>
+
+Applies `f(index, character)` to each character of `s` and returns a **new string** with the results. The original is not modified. Returns `NULL` if `s` or `f` is `NULL`.
+
+- **Depends on:** `ft_strlen`.
+
+```c
+char upper_even(unsigned int i, char c)
 {
-    /* The character is a digit. */
+	if (i % 2 == 0)
+		return (ft_toupper(c));
+	return (c);
 }
+
+ft_strmapi("hello", upper_even);   // "HeLlO"
 ```
 
-These functions are useful for validating input, parsing strings, and checking characters before conversion.
+</details>
 
-### 2. Character Conversion
+<details>
+<summary><b>ft_striteri</b> · 🟡 · <code>void ft_striteri(char *s, void (*f)(unsigned int, char *))</code></summary>
 
-| Function     | Description                                |
-| ------------ | ------------------------------------------ |
-| `ft_toupper` | Converts a lowercase letter to uppercase.  |
-| `ft_tolower` | Converts an uppercase letter to lowercase. |
-
-Example:
+Applies `f(index, &character)` to each character of `s`, **modifying the string itself**. If `s` or `f` is `NULL`, it does nothing.
 
 ```c
-int upper = ft_toupper('a'); /* 'A' */
-int lower = ft_tolower('Z'); /* 'z' */
-```
-
-Characters that do not require conversion are returned unchanged.
-
-### 3. String Manipulation
-
-| Function     | Description                                                     |
-| ------------ | --------------------------------------------------------------- |
-| `ft_strlen`  | Calculates a string's length, excluding the terminating `'\0'`. |
-| `ft_strlcpy` | Copies a string into a destination with a size limit.           |
-| `ft_strlcat` | Concatenates strings while respecting the destination size.     |
-| `ft_strchr`  | Finds the first occurrence of a character.                      |
-| `ft_strrchr` | Finds the last occurrence of a character.                       |
-| `ft_strncmp` | Compares up to a specified number of characters.                |
-| `ft_strnstr` | Searches for a substring within a specified limit.              |
-| `ft_strdup`  | Duplicates a string using dynamically allocated memory.         |
-
-Example:
-
-```c
-size_t length = ft_strlen("Libft");
-```
-
-The result is `5`, because the terminating `'\0'` is not included in the string length.
-
-Example of string comparison:
-
-```c
-if (ft_strncmp("abc", "abd", 3) < 0)
+void upper_even(unsigned int i, char *c)
 {
-    /* The first string comes before the second. */
+	if (i % 2 == 0)
+		*c = ft_toupper(*c);
 }
+
+char s[] = "hello";
+ft_striteri(s, upper_even);   // s = "HeLlO"
 ```
 
-The comparison is based on character values. The result does not have to be exactly `-1`, `0`, or `1`; what matters is whether it is negative, zero, or positive.
+</details>
 
-### 4. Memory Manipulation
+<a id="output"></a>
+### 🖨️ Writing to a file descriptor
 
-These functions operate on blocks of memory, which are not necessarily null-terminated strings.
+The `fd` can be `1` (stdout), `2` (stderr) or the descriptor of an open file.
 
-| Function     | Description                                                        |
-| ------------ | ------------------------------------------------------------------ |
-| `ft_memset`  | Fills a memory region with a byte.                                 |
-| `ft_bzero`   | Sets a memory region to zero.                                      |
-| `ft_memcpy`  | Copies a memory region when source and destination do not overlap. |
-| `ft_memmove` | Copies memory while allowing overlapping regions.                  |
-| `ft_memchr`  | Searches for a byte in a memory region.                            |
-| `ft_memcmp`  | Compares two memory regions byte by byte.                          |
+<details>
+<summary><b>ft_putchar_fd</b> · 🟢 · <code>void ft_putchar_fd(char c, int fd)</code></summary>
 
-Example:
+Writes one character to the descriptor `fd`.
 
 ```c
-char buffer[10];
-
-ft_memset(buffer, 0, sizeof(buffer));
+ft_putchar_fd('A', 1);   // A
 ```
 
-This initializes every byte in `buffer` to zero.
+</details>
 
-**Important difference:** `ft_memcpy` assumes that the source and destination regions do not overlap. Use `ft_memmove` when overlapping regions are possible.
+<details>
+<summary><b>ft_putstr_fd</b> · 🟢 · <code>void ft_putstr_fd(char *s, int fd)</code></summary>
 
-### 5. Number Conversion
+Writes the string `s` to the descriptor `fd`. If `s` is `NULL`, it does nothing.
 
-| Function  | Description                                        |
-| --------- | -------------------------------------------------- |
-| `ft_atoi` | Converts a textual representation into an integer. |
-| `ft_itoa` | Converts an integer into a string.                 |
-
-Example:
+- **Depends on:** `ft_putchar_fd`.
 
 ```c
-int number = ft_atoi("42");
+ft_putstr_fd("42 Porto", 1);   // 42 Porto
 ```
 
-The result is the integer `42`.
+</details>
 
-Example of the reverse conversion:
+<details>
+<summary><b>ft_putendl_fd</b> · 🟢 · <code>void ft_putendl_fd(char *s, int fd)</code></summary>
+
+Writes the string `s` followed by a newline.
+
+- **Depends on:** `ft_putstr_fd`, `ft_putchar_fd`.
 
 ```c
-char *text = ft_itoa(-42);
-
-if (text)
-{
-    ft_putstr_fd(text, 1);
-    free(text);
-}
+ft_putendl_fd("Hello!", 1);   // Hello!\n
 ```
 
-`ft_itoa` typically returns a dynamically allocated string. When you no longer need it, release the memory using `free`.
+</details>
 
-### 6. Memory Allocation
+<details>
+<summary><b>ft_putnbr_fd</b> · 🟡 · <code>void ft_putnbr_fd(int n, int fd)</code></summary>
 
-| Function    | Description                                         |
-| ----------- | --------------------------------------------------- |
-| `ft_calloc` | Allocates memory and initializes its bytes to zero. |
+Writes an integer to the descriptor `fd`, recursively, digit by digit. It uses a `long` to handle `INT_MIN`.
 
-Example:
+- **Depends on:** `ft_putchar_fd`.
 
 ```c
-int *numbers = ft_calloc(5, sizeof(int));
-
-if (!numbers)
-    return (1);
-
-/* Use numbers... */
-
-free(numbers);
+ft_putnbr_fd(-42, 1);          // -42
+ft_putnbr_fd(-2147483648, 1);  // -2147483648
 ```
 
-Dynamically allocated memory should be released when it is no longer needed. Always handle allocation failures according to the function's contract.
+</details>
 
-### 7. Additional Functions
+<details>
+<summary><b>ft_putchar</b> · 🟢 · <code>void ft_putchar(char c)</code> · ➕ extra</summary>
 
-These functions combine simpler operations to make common string tasks easier.
+Writes one character to `stdout`. Not part of the subject.
 
-| Function        | Description                                                          |
-| --------------- | -------------------------------------------------------------------- |
-| `ft_substr`     | Creates a substring from a starting position and length.             |
-| `ft_strjoin`    | Creates a new string by joining two strings.                         |
-| `ft_strtrim`    | Removes specified characters from the beginning and end of a string. |
-| `ft_split`      | Splits a string into multiple strings using a delimiter.             |
-| `ft_strmapi`    | Creates a new string by applying a function to each character.       |
-| `ft_striteri`   | Applies a function to each character of the original string.         |
-| `ft_putchar_fd` | Writes a character to a file descriptor.                             |
-| `ft_putstr_fd`  | Writes a string to a file descriptor.                                |
-| `ft_putendl_fd` | Writes a string followed by a newline.                               |
-| `ft_putnbr_fd`  | Writes an integer to a file descriptor.                              |
+</details>
 
-#### Example: `ft_strjoin`
+<details>
+<summary><b>ft_putstr</b> · 🟢 · <code>void ft_putstr(char *str)</code> · ➕ extra</summary>
 
-```c
-char *result = ft_strjoin("Hello, ", "42!");
+Writes a string to `stdout`. Not part of the subject.
 
-if (!result)
-    return (1);
+- **Depends on:** `ft_putchar`.
 
-ft_putstr_fd(result, 1);
-free(result);
-```
+</details>
 
-The result is `Hello, 42!`.
+<a id="lists"></a>
+### 🔗 Linked lists (bonus)
 
-#### Example: `ft_split`
-
-```c
-char **words = ft_split("one two three", ' ');
-```
-
-The function splits the string into elements separated by spaces. In the classic implementation, the resulting array ends with a `NULL` pointer.
-
-When you finish using the elements, free each string and then the array, according to your function's contract.
-
-#### Example: `ft_substr`
-
-```c
-char *part = ft_substr("Programming", 0, 7);
-```
-
-The substring starts at index `0` and can contain up to seven characters: `Program`.
-
-### 8. Linked Lists — Bonus
-
-The classic bonus introduces linked lists, where each node contains data and a pointer to the next node.
-
-A traditional structure looks like this:
+They all use this structure, declared in `libft.h`:
 
 ```c
 typedef struct s_list
 {
-    void            *content;
-    struct s_list   *next;
-}   t_list;
+	void			*content;
+	struct s_list	*next;
+}	t_list;
 ```
-
-This definition should be included in your header if linked-list functions are part of your implementation.
-
-| Function          | Description                                                         |
-| ----------------- | ------------------------------------------------------------------- |
-| `ft_lstnew`       | Creates a new node.                                                 |
-| `ft_lstadd_front` | Adds a node to the beginning of the list.                           |
-| `ft_lstsize`      | Counts the nodes in the list.                                       |
-| `ft_lstlast`      | Returns the last node.                                              |
-| `ft_lstadd_back`  | Adds a node to the end of the list.                                 |
-| `ft_lstdelone`    | Deletes one node and frees its content using the provided function. |
-| `ft_lstclear`     | Deletes and frees every node in the list.                           |
-| `ft_lstiter`      | Applies a function to each node's content.                          |
-| `ft_lstmap`       | Creates a new list by transforming each node's content.             |
-
-These functions help develop an understanding of dynamic data structures and prepare for future projects that require flexible storage.
-
----
-
-## 🛡️ Best Practices
-
-When developing or using Libft, keep the following points in mind:
-
-- **Validate pointers:** check that arguments are valid whenever the function's contract requires it.
-- **Handle `malloc` failures:** never assume an allocation will always succeed.
-- **Free allocated memory:** make sure every allocation has a clearly defined lifecycle.
-- **Avoid out-of-bounds access:** check indices and memory-region sizes.
-- **Respect function prototypes:** keep header declarations consistent with implementations.
-- **Follow Norminette:** check the coding-style rules required by your version of the project.
-- **Test edge cases:** empty strings, negative values, size limits, and failed allocations are all important.
-
-## 🧪 Testing
-
-To validate the library, start by rebuilding everything:
-
-```bash
-make fclean
-make
-```
-
-Then test individual functions and check edge cases.
-
-Validation checklist:
-
-- [ ] All required functions compile.
-- [ ] Function prototypes in `libft.h` match their implementations.
-- [ ] The `libft.a` library is created in the project root.
-- [ ] `make clean` removes `.o` files but keeps `libft.a`.
-- [ ] `make fclean` removes `.o` files and `libft.a`.
-- [ ] `make re` cleans and rebuilds the library.
-- [ ] Functions that allocate memory handle failures correctly.
-- [ ] Bonus functions, if implemented, are tested separately.
-- [ ] The project follows the requirements of the assigned version.
-
-External tests are useful, but they do not replace the official subject or guarantee a passing evaluation at 42.
-
-## 💡 What I Learned
-
-This project helps consolidate fundamental C programming concepts:
-
-- Pointer and memory-address manipulation.
-- Strings and arrays terminated by `'\0'`.
-- Dynamic memory allocation and deallocation.
-- Byte-level and memory-block operations.
-- Functions and function pointers.
-- Structures and linked lists.
-- Compilation, object files, and static libraries.
-- Build automation with Makefiles.
-
-Libft provides a reusable foundation for other Common Core projects, provided the required functions are implemented and used according to their contracts.
-
-## 🔗 References
-
-- [42 School](https://42.fr/)
-- [GNU Make Documentation](https://www.gnu.org/software/make/manual/)
-- [GCC Documentation](https://gcc.gnu.org/onlinedocs/)
-- [Linux man-pages](https://man7.org/linux/man-pages/)
-
----
-
-*Project developed as part of the 42 School Common Core journey.*
-
-
-- [About the Project](#-about-the-project)
-- [Objectives](#-objectives)
-- [Project Structure](#-project-structure)
-- [Requirements](#-requirements)
-- [Compilation](#-compilation)
-- [How to Use the Library](#-how-to-use-the-library)
-- [Library Functions](#-library-functions)
-  - [Character Checks](#1-character-checks)
-  - [Character Conversion](#2-character-conversion)
-  - [String Manipulation](#3-string-manipulation)
-  - [Memory Manipulation](#4-memory-manipulation)
-  - [Number Conversion](#5-number-conversion)
-  - [Memory Allocation](#6-memory-allocation)
-  - [Additional Functions](#7-additional-functions)
-  - [Linked Lists — Bonus](#8-linked-lists--bonus)
-- [Best Practices](#-best-practices)
-- [Testing](#-testing)
-- [What I Learned](#-what-i-learned)
-- [References](#-references)
-
----
-
-## 🧠 About the Project
-
-**Libft** is a foundational project in the 42 School Common Core. Its goal is to build a personal C library by reimplementing several standard library functions and developing additional utility functions.
-
-Instead of relying directly on certain standard library functions, this project encourages understanding their behavior and implementing custom versions.
-
-The resulting library can be reused in future C projects.
-
-## 🎯 Objectives
-
-- Understand strings, arrays, and pointers.
-- Work with memory addresses and dynamic memory allocation.
-- Learn how to use `malloc` and `free`.
-- Implement memory and string manipulation functions.
-- Understand functions that receive other functions as arguments.
-- Work with structures and linked lists.
-- Create a static library using `ar`.
-- Automate compilation with a `Makefile`.
-- Write organized, reusable, and robust C code.
-
-## 📁 Project Structure
-
-The exact structure may vary depending on the version of the assignment. One possible layout is:
 
 ```text
-libft/
-├── Makefile
-├── libft.a
-├── includes/
-│   └── libft.h
-└── srcs/
-    ├── ft_isalpha.c
-    ├── ft_isdigit.c
-    ├── ft_strlen.c
-    ├── ft_memset.c
-    ├── ft_strdup.c
-    └── ...
+list ─► [content|next] ─► [content|next] ─► [content|next] ─► NULL
 ```
 
-| File or directory  | Purpose                                      |
-| ------------------ | -------------------------------------------- |
-| `Makefile`         | Automates compilation.                       |
-| `includes/libft.h` | Declares public functions and structures.    |
-| `srcs/`            | Contains function implementations.           |
-| `libft.a`          | Static library generated during compilation. |
-| `*.o`              | Object files produced by the compiler.       |
+<details>
+<summary><b>ft_lstnew</b> · 🟢 · <code>t_list *ft_lstnew(void *content)</code> · 💾</summary>
 
-## ⚙️ Requirements
-
-Before compiling, make sure you have:
-
-- A C compiler, such as `cc` or `gcc`.
-- `make`.
-- `ar`, which creates static libraries.
-- An environment compatible with the commands used in the Makefile.
-
-## 🔨 Compilation
-
-From the project root directory, run:
-
-```bash
-make
-```
-
-This executes the default Makefile target and creates `libft.a`.
-
-### Available Commands
-
-| Command       | Description                                   |
-| ------------- | --------------------------------------------- |
-| `make`        | Compiles the library.                         |
-| `make all`    | Executes the main target.                     |
-| `make clean`  | Removes object files (`.o`).                  |
-| `make fclean` | Removes object files and `libft.a`.           |
-| `make re`     | Cleans previous build outputs and recompiles. |
-
-To perform a clean rebuild:
-
-```bash
-make fclean
-make
-```
-
-## 🔌 How to Use the Library
-
-After compiling the library, you can link it to a C program.
-
-### 1. Include the Header
-
-In your C source file:
+Creates a new node with the given `content` and `next = NULL`. Returns `NULL` if `malloc` fails.
 
 ```c
-#include "libft.h"
+t_list *node = ft_lstnew(ft_strdup("First"));
 ```
 
-The header contains declarations for the functions available in your library.
+</details>
 
-### 2. Compile Your Program
+<details>
+<summary><b>ft_lstadd_front</b> · 🟢 · <code>void ft_lstadd_front(t_list **lst, t_list *new)</code></summary>
 
-For example, if your program is called `main.c`:
+Inserts `new` at the **start** of the list. If `lst` or `new` is `NULL`, it does nothing.
 
-```bash
-cc -Wall -Wextra -Werror \
-   -I includes \
-   main.c libft.a \
-   -o program
+```text
+before: A ─► B ─► NULL
+after:  new ─► A ─► B ─► NULL
 ```
 
-Then run it:
+</details>
 
-```bash
-./program
-```
+<details>
+<summary><b>ft_lstsize</b> · 🟢 · <code>unsigned int ft_lstsize(t_list *lst)</code></summary>
 
-**What do the options mean?**
-
-- `-Wall -Wextra -Werror`: enables warnings and treats them as errors.
-- `-I includes`: tells the compiler where to find header files.
-- `main.c`: your program's source file.
-- `libft.a`: the static library containing your implementations.
-- `-o program`: sets the output executable's name.
-
-### 3. Usage Example
+Counts the nodes in the list. A `NULL` list has size `0`.
 
 ```c
-#include "libft.h"
-
-int main(void)
-{
-    char message[] = "My Libft is working!\n";
-
-    ft_putstr_fd(message, 1);
-    return (0);
-}
+ft_lstsize(list);   // 3
 ```
 
-This example assumes that `ft_putstr_fd` is implemented in your library. File descriptor `1` represents standard output, usually the terminal.
+</details>
+
+<details>
+<summary><b>ft_lstlast</b> · 🟢 · <code>t_list *ft_lstlast(t_list *lst)</code></summary>
+
+Returns the **last** node of the list, or `NULL` if the list is empty.
+
+</details>
+
+<details>
+<summary><b>ft_lstadd_back</b> · 🟡 · <code>void ft_lstadd_back(t_list **lst, t_list *new)</code></summary>
+
+Inserts `new` at the **end** of the list. If the list is empty, `new` becomes the first node.
+
+- **Depends on:** `ft_lstlast`.
+
+```text
+before: A ─► B ─► NULL
+after:  A ─► B ─► new ─► NULL
+```
+
+</details>
+
+<details>
+<summary><b>ft_lstdelone</b> · 🟡 · <code>void ft_lstdelone(t_list *lst, void (*del)(void *))</code></summary>
+
+Frees **one** node: calls `del(lst->content)` and then `free(lst)`. If `lst` or `del` is `NULL`, it does nothing.
+
+⚠️ It does not update the `next` pointer of the previous node; that is the caller's responsibility.
+
+</details>
+
+<details>
+<summary><b>ft_lstclear</b> · 🔴 · <code>void ft_lstclear(t_list **lst, void (*del)(void *))</code></summary>
+
+Frees **every** node of the list and leaves `*lst` as `NULL`. It saves `next` before freeing each node. If `lst` or `del` is `NULL`, it does nothing.
+
+- **Depends on:** `ft_lstdelone`.
+
+```c
+ft_lstclear(&list, free);   // list == NULL
+```
+
+</details>
+
+<details>
+<summary><b>ft_lstiter</b> · 🟡 · <code>void ft_lstiter(t_list *lst, void (*f)(void *))</code></summary>
+
+Applies `f` to the `content` of each node, from first to last, **modifying the original list**.
+
+```c
+ft_lstiter(list, to_upper);   // every content goes through to_upper()
+```
+
+</details>
+
+<details>
+<summary><b>ft_lstmap</b> · 🔴 · <code>t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))</code> · 💾</summary>
+
+Creates a **new list** where each node holds `f(content)`. The original list is not modified.
+
+- If a node cannot be created, it calls `del` on the new content, clears the whole new list and returns `NULL`.
+- If `lst`, `f` or `del` is `NULL`, it returns `NULL`.
+- **Depends on:** `ft_lstnew`, `ft_lstadd_back`, `ft_lstclear`.
+
+```c
+t_list *copy = ft_lstmap(list, dup_to_upper, free);
+// ...
+ft_lstclear(&list, free);
+ft_lstclear(&copy, free);
+```
+
+</details>
 
 ---
 
-## 🧩 Library Functions
-
-The following sections describe functions found in the classic Libft project. Include only the functions actually implemented in your version.
-
-### 1. Character Checks
-
-These functions check character properties. They return a non-zero value when the condition is true and zero when it is false.
-
-| Function     | Description                                                 |
-| ------------ | ----------------------------------------------------------- |
-| `ft_isalpha` | Checks whether a character is a letter.                     |
-| `ft_isdigit` | Checks whether a character is a digit from `0` to `9`.      |
-| `ft_isalnum` | Checks whether a character is a letter or digit.            |
-| `ft_isascii` | Checks whether a value belongs to the ASCII range `0–127`.  |
-| `ft_isprint` | Checks whether a character is printable in the ASCII range. |
-
-Example:
-
-```c
-if (ft_isdigit('7'))
-{
-    /* The character is a digit. */
-}
-```
-
-These functions are useful for validating input, parsing strings, and checking characters before conversion.
-
-### 2. Character Conversion
-
-| Function     | Description                                |
-| ------------ | ------------------------------------------ |
-| `ft_toupper` | Converts a lowercase letter to uppercase.  |
-| `ft_tolower` | Converts an uppercase letter to lowercase. |
-
-Example:
-
-```c
-int upper = ft_toupper('a'); /* 'A' */
-int lower = ft_tolower('Z'); /* 'z' */
-```
-
-Characters that do not require conversion are returned unchanged.
-
-### 3. String Manipulation
-
-| Function     | Description                                                     |
-| ------------ | --------------------------------------------------------------- |
-| `ft_strlen`  | Calculates a string's length, excluding the terminating `'\0'`. |
-| `ft_strlcpy` | Copies a string into a destination with a size limit.           |
-| `ft_strlcat` | Concatenates strings while respecting the destination size.     |
-| `ft_strchr`  | Finds the first occurrence of a character.                      |
-| `ft_strrchr` | Finds the last occurrence of a character.                       |
-| `ft_strncmp` | Compares up to a specified number of characters.                |
-| `ft_strnstr` | Searches for a substring within a specified limit.              |
-| `ft_strdup`  | Duplicates a string using dynamically allocated memory.         |
-
-Example:
-
-```c
-size_t length = ft_strlen("Libft");
-```
-
-The result is `5`, because the terminating `'\0'` is not included in the string length.
-
-Example of string comparison:
-
-```c
-if (ft_strncmp("abc", "abd", 3) < 0)
-{
-    /* The first string comes before the second. */
-}
-```
-
-The comparison is based on character values. The result does not have to be exactly `-1`, `0`, or `1`; what matters is whether it is negative, zero, or positive.
-
-### 4. Memory Manipulation
-
-These functions operate on blocks of memory, which are not necessarily null-terminated strings.
-
-| Function     | Description                                                        |
-| ------------ | ------------------------------------------------------------------ |
-| `ft_memset`  | Fills a memory region with a byte.                                 |
-| `ft_bzero`   | Sets a memory region to zero.                                      |
-| `ft_memcpy`  | Copies a memory region when source and destination do not overlap. |
-| `ft_memmove` | Copies memory while allowing overlapping regions.                  |
-| `ft_memchr`  | Searches for a byte in a memory region.                            |
-| `ft_memcmp`  | Compares two memory regions byte by byte.                          |
-
-Example:
-
-```c
-char buffer[10];
-
-ft_memset(buffer, 0, sizeof(buffer));
-```
-
-This initializes every byte in `buffer` to zero.
-
-**Important difference:** `ft_memcpy` assumes that the source and destination regions do not overlap. Use `ft_memmove` when overlapping regions are possible.
-
-### 5. Number Conversion
-
-| Function  | Description                                        |
-| --------- | -------------------------------------------------- |
-| `ft_atoi` | Converts a textual representation into an integer. |
-| `ft_itoa` | Converts an integer into a string.                 |
-
-Example:
-
-```c
-int number = ft_atoi("42");
-```
-
-The result is the integer `42`.
-
-Example of the reverse conversion:
-
-```c
-char *text = ft_itoa(-42);
-
-if (text)
-{
-    ft_putstr_fd(text, 1);
-    free(text);
-}
-```
-
-`ft_itoa` typically returns a dynamically allocated string. When you no longer need it, release the memory using `free`.
-
-### 6. Memory Allocation
-
-| Function    | Description                                         |
-| ----------- | --------------------------------------------------- |
-| `ft_calloc` | Allocates memory and initializes its bytes to zero. |
-
-Example:
-
-```c
-int *numbers = ft_calloc(5, sizeof(int));
-
-if (!numbers)
-    return (1);
-
-/* Use numbers... */
-
-free(numbers);
-```
-
-Dynamically allocated memory should be released when it is no longer needed. Always handle allocation failures according to the function's contract.
-
-### 7. Additional Functions
-
-These functions combine simpler operations to make common string tasks easier.
-
-| Function        | Description                                                          |
-| --------------- | -------------------------------------------------------------------- |
-| `ft_substr`     | Creates a substring from a starting position and length.             |
-| `ft_strjoin`    | Creates a new string by joining two strings.                         |
-| `ft_strtrim`    | Removes specified characters from the beginning and end of a string. |
-| `ft_split`      | Splits a string into multiple strings using a delimiter.             |
-| `ft_strmapi`    | Creates a new string by applying a function to each character.       |
-| `ft_striteri`   | Applies a function to each character of the original string.         |
-| `ft_putchar_fd` | Writes a character to a file descriptor.                             |
-| `ft_putstr_fd`  | Writes a string to a file descriptor.                                |
-| `ft_putendl_fd` | Writes a string followed by a newline.                               |
-| `ft_putnbr_fd`  | Writes an integer to a file descriptor.                              |
-
-#### Example: `ft_strjoin`
-
-```c
-char *result = ft_strjoin("Hello, ", "42!");
-
-if (!result)
-    return (1);
-
-ft_putstr_fd(result, 1);
-free(result);
-```
-
-The result is `Hello, 42!`.
-
-#### Example: `ft_split`
-
-```c
-char **words = ft_split("one two three", ' ');
-```
-
-The function splits the string into elements separated by spaces. In the classic implementation, the resulting array ends with a `NULL` pointer.
-
-When you finish using the elements, free each string and then the array, according to your function's contract.
-
-#### Example: `ft_substr`
-
-```c
-char *part = ft_substr("Programming", 0, 7);
-```
-
-The substring starts at index `0` and can contain up to seven characters: `Program`.
-
-### 8. Linked Lists — Bonus
-
-The classic bonus introduces linked lists, where each node contains data and a pointer to the next node.
-
-A traditional structure looks like this:
-
-```c
-typedef struct s_list
-{
-    void            *content;
-    struct s_list   *next;
-}   t_list;
-```
-
-This definition should be included in your header if linked-list functions are part of your implementation.
-
-| Function          | Description                                                         |
-| ----------------- | ------------------------------------------------------------------- |
-| `ft_lstnew`       | Creates a new node.                                                 |
-| `ft_lstadd_front` | Adds a node to the beginning of the list.                           |
-| `ft_lstsize`      | Counts the nodes in the list.                                       |
-| `ft_lstlast`      | Returns the last node.                                              |
-| `ft_lstadd_back`  | Adds a node to the end of the list.                                 |
-| `ft_lstdelone`    | Deletes one node and frees its content using the provided function. |
-| `ft_lstclear`     | Deletes and frees every node in the list.                           |
-| `ft_lstiter`      | Applies a function to each node's content.                          |
-| `ft_lstmap`       | Creates a new list by transforming each node's content.             |
-
-These functions help develop an understanding of dynamic data structures and prepare for future projects that require flexible storage.
-
----
-
-## 🛡️ Best Practices
-
-When developing or using Libft, keep the following points in mind:
-
-- **Validate pointers:** check that arguments are valid whenever the function's contract requires it.
-- **Handle `malloc` failures:** never assume an allocation will always succeed.
-- **Free allocated memory:** make sure every allocation has a clearly defined lifecycle.
-- **Avoid out-of-bounds access:** check indices and memory-region sizes.
-- **Respect function prototypes:** keep header declarations consistent with implementations.
-- **Follow Norminette:** check the coding-style rules required by your version of the project.
-- **Test edge cases:** empty strings, negative values, size limits, and failed allocations are all important.
-
+<a id="testing"></a>
 ## 🧪 Testing
 
-To validate the library, start by rebuilding everything:
+Write your tests in a **separate** `main.c`, outside the library files, and compile it against `libft.a`:
 
 ```bash
-make fclean
 make
+cc -Wall -Wextra -Werror main.c -L. -lft -o test
+valgrind --leak-check=full ./test
 ```
 
-Then test individual functions and check edge cases.
+Suggested order: test the functions that depend on no others first (see the [dependency map](#dependencies)), and only then the ones that use them.
 
-Validation checklist:
-
-- [ ] All required functions compile.
-- [ ] Function prototypes in `libft.h` match their implementations.
-- [ ] The `libft.a` library is created in the project root.
-- [ ] `make clean` removes `.o` files but keeps `libft.a`.
-- [ ] `make fclean` removes `.o` files and `libft.a`.
-- [ ] `make re` cleans and rebuilds the library.
-- [ ] Functions that allocate memory handle failures correctly.
-- [ ] Bonus functions, if implemented, are tested separately.
-- [ ] The project follows the requirements of the assigned version.
-
-External tests are useful, but they do not replace the official subject or guarantee a passing evaluation at 42.
-
-## 💡 What I Learned
-
-This project helps consolidate fundamental C programming concepts:
-
-- Pointer and memory-address manipulation.
-- Strings and arrays terminated by `'\0'`.
-- Dynamic memory allocation and deallocation.
-- Byte-level and memory-block operations.
-- Functions and function pointers.
-- Structures and linked lists.
-- Compilation, object files, and static libraries.
-- Build automation with Makefiles.
-
-Libft provides a reusable foundation for other Common Core projects, provided the required functions are implemented and used according to their contracts.
-
-## 🤖 AI Usage Disclosure
-
-AI tools were used as a learning aid during the development of this project.
-
-I used ChatGPT to clarify C programming concepts, understand function behavior, discuss pointers and memory management, review code, troubleshoot issues, and learn how to structure and improve my Makefile and documentation.
-
-The purpose of using AI was to support my learning and problem-solving process, not to replace my understanding of the code. I remain responsible for reviewing, understanding, testing, and validating the final implementation against the official project requirements.
-
-AI assistance was used as a supplementary educational resource throughout the development process.
-
-## 🔗 References
-
-- [42 School](https://42.fr/)
-- [GNU Make Documentation](https://www.gnu.org/software/make/manual/)
-- [GCC Documentation](https://gcc.gnu.org/onlinedocs/)
-- [Linux man-pages](https://man7.org/linux/man-pages/)
+For a more complete battery, there are community testers such as `libftTester` (Tripouille) and `libft-unit-test` (alelievr).
 
 ---
 
-*Project developed as part of the 42 School Common Core journey.*
+## ✅ Checklist before submitting
+
+- [ ] `make` builds with no errors or warnings using `-Wall -Wextra -Werror`
+- [ ] `make re` does not rebuild what is already built (no *relink*)
+- [ ] `norminette` reports no errors
+- [ ] No library file contains a `main()`
+- [ ] No memory leaks (`valgrind`) in the functions that allocate
+- [ ] No generated files in the repository (`*.o`, `libft.a`, `a.out`)
+- [ ] Every prototype in `libft.h` matches the subject
+
+---
+
+<a id="ai-usage"></a>
+## 🤖 AI usage
+
+In line with 42's rules on transparency, this is how AI was used in this project:
+
+- **Learning:** I used AI assistants to explain concepts (for example pointers, memory allocation, `unsigned char` casts, linked lists) and to help me understand how the functions are supposed to behave.
+- **Documentation:** this README was written with the help of an AI assistant (Claude, by Anthropic), based on the project's source files.
+
+---
+
+## 👤 Author
+
+**fercarva** · 42 Porto

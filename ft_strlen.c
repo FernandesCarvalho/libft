@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 10:15:13 by fercarva          #+#    #+#             */
-/*   Updated: 2026/08/28 10:05:23 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/05 19:38:00 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,10 @@ size_t	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
+/* 
+int main()
+{
+	char *s = "Hello World!!!";
+	printf("%zu\n", ft_strlen(s));
+	
+} */

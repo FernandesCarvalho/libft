@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/23 10:35:51 by fercarva          #+#    #+#             */
-/*   Updated: 2026/09/23 11:04:58 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/04 20:08:26 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,3 +23,13 @@ t_list	*ft_lstnew(void	*content)
 	new_node->next = NULL;
 	return (new_node);
 }
+
+/* int main()
+{
+	t_list *new_list;
+	
+	new_list = ft_lstnew((ft_strdup("Node test\n")));
+	printf("\nNode criado:\n");
+	printf("%s\n", (char *)new_list->content);
+	ft_lstclear(&new_list, free);
+} */

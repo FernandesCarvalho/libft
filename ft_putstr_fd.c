@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/09 11:44:41 by fercarva          #+#    #+#             */
-/*   Updated: 2026/09/09 11:56:49 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/05 17:44:48 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,9 @@ void	ft_putstr_fd(char *s, int fd)
 		s++;
 	}
 }
+
+/* int main()
+{
+	ft_putstr_fd("Hello world!\n", 1);
+	return (0);
+} */

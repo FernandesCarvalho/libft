@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 10:15:46 by fercarva          #+#    #+#             */
-/*   Updated: 2026/08/31 11:04:06 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/05 18:57:12 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,13 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_strlcpy(string, s1, len);
 	ft_strlcat(string, s2, len);
 	return (string);
+}
+
+int main()
+{
+	char *str1 = "Hello ";
+	char *str2 = "World!!!";
+	char *str = ft_strjoin(str1, str2);
+	
+	printf("%s\n", str);
 }

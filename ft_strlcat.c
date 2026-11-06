@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 10:28:41 by fercarva          #+#    #+#             */
-/*   Updated: 2026/08/28 10:02:11 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/05 19:07:01 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,9 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	}
 	dst[temp_dst] = '\0';
 	return (dst_len + src_len);
+}
+
+int main ()
+{
+	
 }

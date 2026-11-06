@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 11:46:04 by fercarva          #+#    #+#             */
-/*   Updated: 2026/09/09 11:20:50 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/06 11:40:09 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,3 +29,12 @@ char	*ft_strrchr(const char *str, int c)
 		return ((char *)str);
 	return (string);
 }
+
+/* int main()
+{
+	char *str = "Hello 42Porto!!";
+	char c = 'o';
+
+	printf("%s\n", ft_strrchr(str, c));
+	return (0);
+} */

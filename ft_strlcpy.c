@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 01:11:08 by fercarva          #+#    #+#             */
-/*   Updated: 2026/08/28 09:56:13 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/05 19:35:27 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,13 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 		i++;
 	return (i);
 }
+
+/* int main()
+{
+	char *c = "Hello World!!";
+	char s[] = "";
+	size_t i = ft_strlcpy(s, c, 5);
+
+	printf("%zu\n", i);
+	return (0);
+} */

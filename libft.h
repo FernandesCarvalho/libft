@@ -6,19 +6,17 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 10:42:29 by fercarva          #+#    #+#             */
-/*   Updated: 2026/09/24 12:26:01 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/06 12:26:08 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <ctype.h>
-# include <stddef.h>
-# include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
+// # include <stdio.h>
+// # include <string.h> 
 
 typedef struct s_list
 {
@@ -37,7 +35,6 @@ char			*ft_strrchr(const char *str, int c);
 char			*ft_strtrim(char const *s1, char const *set);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 int				ft_atoi(const char *nptr);
-int				ft_count_words(char const *s, char c);
 int				ft_isalnum(int n);
 int				ft_isalpha(int n);
 int				ft_isascii(int n);

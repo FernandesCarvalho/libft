@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/01 10:10:42 by fercarva          #+#    #+#             */
-/*   Updated: 2026/09/01 10:11:53 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/05 17:46:32 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,3 +16,9 @@ void	ft_putchar(char c)
 {
 	write(1, &c, 1);
 }
+/* int main()
+{
+	ft_putchar('c');
+	ft_putchar('\n');
+	return (0);
+} */

@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 15:11:02 by fercarva          #+#    #+#             */
-/*   Updated: 2026/08/31 15:12:17 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/04 18:46:10 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,17 @@ void	ft_bzero(void *s, size_t n)
 		n--;
 	}
 }
+/*   
+int main()
+{
+	int i = 0;
+	char c[] = "hello";
+	printf("%s\n", c);
+	ft_bzero(c , 6);
+	while (i < 5)
+	{
+		printf("%d ", c[i]);
+		i++;
+	}
+	return (0);
+} */

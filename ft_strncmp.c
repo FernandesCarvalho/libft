@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 11:59:08 by fercarva          #+#    #+#             */
-/*   Updated: 2026/08/28 09:58:21 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/05 20:26:45 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,3 +27,13 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (0);
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
+
+/* int main ()
+{
+	char *s1 = "Hello World!!";
+	char *s2 = "Hello World!!";
+	int i = ft_strncmp(s1, s2, 5);
+
+	printf("%i\n", i);
+	return (0);
+} */
