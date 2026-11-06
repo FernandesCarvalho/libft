@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/09 11:05:41 by fercarva          #+#    #+#             */
-/*   Updated: 2026/11/05 20:15:27 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/06 12:44:12 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,3 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	str[i] = '\0';
 	return (str);
 }
-
-/* char to_uppereven(unsigned int i, char c)
-{
-	if (i % 2 == 0 && c >= 'a' && c <= 'z')
-		return (c -= 32);
-	return (c);
-}
-
-int main()
-{
-	char *c = "Hello World!!";
-	
-	char *s = "";
-	s = ft_strmapi(c, to_uppereven);
-	printf("%s\n", s);
-	return (0);
-} */

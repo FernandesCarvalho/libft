@@ -9,7 +9,7 @@
 <p align="center">
   <img alt="42 Porto" src="https://img.shields.io/badge/42-Porto-000000?style=flat">
   <img alt="Language C" src="https://img.shields.io/badge/language-C-00599C?style=flat">
-  <img alt="45 functions" src="https://img.shields.io/badge/functions-45-success?style=flat">
+  <img alt="43 functions" src="https://img.shields.io/badge/functions-43-success?style=flat">
 </p>
 
 ---
@@ -53,10 +53,10 @@
 | 5 | [🧠 Memory](#mem) | 7 | Part 1 |
 | 6 | [🔢 Numbers and text](#numbers) | 2 | Part 1 and 2 |
 | 7 | [✂️ Creating and transforming strings](#str-new) | 6 | Part 2 |
-| 8 | [🖨️ Writing to a file descriptor](#output) | 6 | Part 2 and extras |
+| 8 | [🖨️ Writing to a file descriptor](#output) | 4 | Part 2 |
 | 9 | [🔗 Linked lists](#lists) | 9 | Part 3 |
 
-**Total: 45 functions** (23 from `libc` in Part 1, 11 additional in Part 2, 9 linked-list functions in Part 3 and 2 extras outside the subject: `ft_putchar` and `ft_putstr`).
+**Total: 43 functions** (23 from `libc` in Part 1, 11 additional in Part 2 and 9 linked-list functions in Part 3).
 
 ---
 
@@ -99,7 +99,7 @@ cc -Wall -Wextra -Werror main.c -L. -lft -o test
 ## 🎯 By difficulty
 
 <details>
-<summary><b>🟢 Easy</b> · 20 functions</summary>
+<summary><b>🟢 Easy</b> · 18 functions</summary>
 
 | Category | Functions |
 | --- | --- |
@@ -107,7 +107,7 @@ cc -Wall -Wextra -Werror main.c -L. -lft -o test
 | Character conversion | `ft_toupper` `ft_tolower` |
 | Strings | `ft_strlen` `ft_strchr` |
 | Memory | `ft_memset` `ft_bzero` |
-| Output | `ft_putchar_fd` `ft_putstr_fd` `ft_putendl_fd` `ft_putchar` `ft_putstr` |
+| Output | `ft_putchar_fd` `ft_putstr_fd` `ft_putendl_fd` |
 | Lists | `ft_lstnew` `ft_lstadd_front` `ft_lstsize` `ft_lstlast` |
 
 </details>
@@ -170,7 +170,6 @@ flowchart LR
     ft_split --> ft_calloc
     ft_split --> ft_substr
     ft_strmapi --> ft_strlen
-    ft_putstr --> ft_putchar
     ft_putstr_fd --> ft_putchar_fd
     ft_putendl_fd --> ft_putstr_fd
     ft_putendl_fd --> ft_putchar_fd

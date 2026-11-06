@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 12:29:46 by fercarva          #+#    #+#             */
-/*   Updated: 2026/11/05 15:32:55 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/06 12:43:00 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,3 @@ void	*ft_memset(void *s, int c, size_t n)
 	}
 	return (s);
 }
-
-/* int main()
-{
-	char s[] = "Hello 42Porto";
-	char c = '.';
-
-	printf("%s\n", (char *)ft_memset(s, c, 5));
-	return (0);
-} */

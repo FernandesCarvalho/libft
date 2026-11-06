@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/26 13:09:03 by fercarva          #+#    #+#             */
-/*   Updated: 2026/11/05 13:39:00 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/06 12:42:49 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,3 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	}
 	return (dst);
 }
-
-/* int main()
-{
-	char src1[] = "String";
-	char dest1[] = "42port";
-	char dest2[] = "42port";
-	ft_memcpy(dest1, src1, 4);
-	ft_memcpy(dest2, src1, 7);
-	printf("%s\n", dest1);
-	printf("%s\n", dest2);
-
-	return (0);
-} */

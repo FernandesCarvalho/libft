@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/31 14:07:54 by fercarva          #+#    #+#             */
-/*   Updated: 2026/11/06 11:44:39 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/06 12:44:29 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 		end--;
 	return (ft_substr(s1, start, end - start));
 }
-
-/* int main()
-{
-	char *str = "-----...42Porto...-.---";
-	char *set = "-.";
-
-	printf("%s\n", ft_strtrim(str, set));
-	return (0);
-} */

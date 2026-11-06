@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 15:06:21 by fercarva          #+#    #+#             */
-/*   Updated: 2026/11/03 16:15:57 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/06 12:40:59 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,3 @@ int	ft_atoi(const char *nptr)
 	}
 	return (result * sign);
 }
-
-/* #include<stdio.h>
-int main()
-{
-	printf("%i\n", ft_atoi("-42"));
-	printf("%i\n", ft_atoi("42"));
-	printf("%i\n", ft_atoi("--42"));
-	printf("%i\n", ft_atoi("+-42"));
-} */

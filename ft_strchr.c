@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/25 10:33:24 by fercarva          #+#    #+#             */
-/*   Updated: 2026/11/05 18:11:55 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/06 12:43:30 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,3 @@ char	*ft_strchr(const char *str, int c)
 		return ((char *)str);
 	return (NULL);
 }
-
-/* int main()
-{
-	char *s1 = "Hello world!!\n";
-	char c = 'o';
-
-	printf("%s", ft_strchr(s1, c));
-
-	return (0);
-} */

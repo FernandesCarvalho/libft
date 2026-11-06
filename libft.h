@@ -6,7 +6,7 @@
 /*   By: fercarva <fercarva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/27 10:42:29 by fercarva          #+#    #+#             */
-/*   Updated: 2026/11/06 12:26:08 by fercarva         ###   ########.fr       */
+/*   Updated: 2026/11/06 15:06:59 by fercarva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-// # include <stdio.h>
-// # include <string.h> 
 
 typedef struct s_list
 {
@@ -63,9 +61,7 @@ void			*ft_memchr(const void *s, int c, size_t n);
 void			*ft_memmove(void *dst, const void *src, size_t len);
 void			*ft_memset(void *s, int c, size_t n);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
-void			ft_putchar(char c);
 void			ft_putchar_fd(char c, int fd);
-void			ft_putstr(char *str);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 void			ft_putstr_fd(char *s, int fd);
