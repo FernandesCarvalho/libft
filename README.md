@@ -54,9 +54,9 @@
 | 6 | [🔢 Numbers and text](#numbers) | 2 | Part 1 and 2 |
 | 7 | [✂️ Creating and transforming strings](#str-new) | 6 | Part 2 |
 | 8 | [🖨️ Writing to a file descriptor](#output) | 6 | Part 2 and extras |
-| 9 | [🔗 Linked lists](#lists) | 9 | Bonus |
+| 9 | [🔗 Linked lists](#lists) | 9 | Part 3 |
 
-**Total: 45 functions** (23 from `libc`, 11 additional, 9 for lists and 2 extras outside the subject: `ft_putchar` and `ft_putstr`).
+**Total: 45 functions** (23 from `libc` in Part 1, 11 additional in Part 2, 9 linked-list functions in Part 3 and 2 extras outside the subject: `ft_putchar` and `ft_putstr`).
 
 ---
 
@@ -731,7 +731,7 @@ Writes a string to `stdout`. Not part of the subject.
 </details>
 
 <a id="lists"></a>
-### 🔗 Linked lists (bonus)
+### 🔗 Linked lists (Part 3)
 
 They all use this structure, declared in `libft.h`:
 
